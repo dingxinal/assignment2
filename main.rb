@@ -3,7 +3,7 @@ require 'sass'
 require 'dm-core'
 require 'dm-migrations'
 
-DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/student.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/student.db")
 
 class Student 
 	include DataMapper::Resource
