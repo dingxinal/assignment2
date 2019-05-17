@@ -1,0 +1,8 @@
+<% foo = @foos  %>
+	<li>student's name: <%=	foo.firstname + ' '+ foo.lastname %></li>
+	<li>student's birthday: <%=	foo.birthday %></li>
+	<li>student's address: <%=	foo.address %></li>
+	<li>student's age: <%=	foo.age %></li>
+	
+
+<button onclick="location.href='/students/<%=foo.id%>/edit'">Edit</button>

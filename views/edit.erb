@@ -1,0 +1,14 @@
+<% foo = @foos %>
+<form action="/students/<%=foo.id%>" method="post">
+	Firstname:<br>
+	<input type="text" value="<%=foo.firstname%>" name="firstname"><br>
+	Lastname:<br>
+	<input type="text" value="<%=foo.lastname%>" name="lastname"><br>
+	<input type="submit" name="Submit">
+</form>
+
+
+ <form onsubmit="confirm('Are you sure you want to delete the student?')" action="/students/<%=foo.id%>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Delete</button>
+  </form>
