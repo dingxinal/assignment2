@@ -7,4 +7,10 @@ gem "thin"
 gem "pg"
 gem "dm-postgres-adapter"
 gem "slim"
-gem "dm-sqlite-adapter", :group => :development
+group :development do
+  gem 'dm-sqlite-adapter'
+end
+
+group :production do
+  gem 'dm-postgres-adapter'
+end
