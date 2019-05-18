@@ -4,7 +4,7 @@ require 'dm-core'
 require 'dm-migrations'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/student.db")
-set :port, 1111
+
 
 class Student 
 	include DataMapper::Resource
