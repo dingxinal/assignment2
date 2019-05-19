@@ -1,0 +1,8 @@
+<h2>Comment list </h2>
+<ul>
+<% @comments.each do |comment| %>
+<li><a href="/comment/<%=comment.id%>">	<%= comment.content %></a> -<%=  comment.created_at.strftime("%m/%d/%Y %k:%M") %> </li>
+<% end %>
+</ul>
+
+<button onclick="location.href='/comment/new'">Add new Comment</button>

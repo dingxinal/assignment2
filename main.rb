@@ -15,6 +15,14 @@ class Student
 	property :age, Integer
 end
 
+class Comment 
+	include DataMapper::Resource
+	property :id, Serial
+	property :content, Text
+	property :user, String
+	property :created_at, DateTime
+end
+
 DataMapper.finalize
 DataMapper.auto_upgrade!
 
@@ -83,9 +91,39 @@ end
 
 get '/contact' do
 	erb :contact
-	
 end
 
+get '/video' do
+	erb :video
+end
+
+get '/comment' do
+	@comments = Comment.all
+	erb :comment
+end
+
+get '/comment/new' do
+	erb :comment_new
+
+end
+
+post '/comment/new' do
+	@comment = Comment.new(
+		:content => params[:content],
+		:user => params[:user],
+		:created_at => Time.now
+		)
+	if @comment.save
+    redirect "/comment"
+    else
+    redirect "/comment/new"
+  	end
+end
+
+get '/comment/:id' do
+	@foos = Comment.all(:id => params[:id]).first
+	erb :show_comment
+end
 
 get '/logout' do
 	session.clear
