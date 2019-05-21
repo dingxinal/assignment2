@@ -1,4 +1,4 @@
-$red: #903;
+$red: #efb31c;
 $black: #444;
 $white: #fff;
 $main-font: Helvetica, Arial, sans-serif;
@@ -26,6 +26,10 @@ h1 {
   color: $red;
   font: 32px/1 $main-font;
 
+}
+
+h2 {
+  color: $red;
 }
 
 header h1 {
