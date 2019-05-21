@@ -38,11 +38,7 @@ get'/styles.css' do
 end
 
 get '/' do
-	if session[:name] 
-		erb :view
-	else
-		erb :view
-	end
+	erb :view
 end
 
 
@@ -59,7 +55,8 @@ get '/students/new' do
 	end
 end
 
-post '/students/new' do
+# add new student
+post '/students' do
 	@newstudent = Student.new(
       :firstname      => params[:firstname],
       :lastname       => params[:lastname],
@@ -67,6 +64,7 @@ post '/students/new' do
 	  :age => params[:age],
 	  :address => params[:address]
     )
+    # if not saved successfully, redirect to the original page
 	if @newstudent.save
     	redirect "/students"
     else
@@ -74,12 +72,14 @@ post '/students/new' do
   	end
 end
 
+# get students's information bu id
 get '/students/:id' do
 	@foos = Student.all(:id => params[:id]).first
 	erb :show_student
 end
 
-post '/students/:id' do
+# update student's information
+put '/students/:id' do
 	@foos = Student.all(:id => params[:id]).first
 	@foos.update :firstname => params[:firstname],
 				 :lastname => params[:lastname],
@@ -128,6 +128,8 @@ get '/comment/new' do
 end
 
 post '/comment/new' do
+	# make sure content part is not empty
+	if params[:content] != ""
 	@comment = Comment.new(
 		:content => params[:content],
 		:user => (params[:user] ||session[:user]),
@@ -138,6 +140,9 @@ post '/comment/new' do
     else
     redirect "/comment/new"
   	end
+  else 
+  	redirect "/comment/new"
+  end
 end
 
 get '/comment/:id' do
@@ -153,7 +158,7 @@ post '/login' do
 	if params[:username] == settings.username &&
 		params[:password] == settings.password
 		session[:admin] = true
-		#session[:user] = params[:username]
+		session[:user] = params[:username]
 		redirect '/'
 	else
 		redirect '/login'
@@ -162,19 +167,11 @@ end
 
 get '/logout' do
 	session.clear
-	"logging out.."
-	redirect '/'
+	erb :logout
 end
 
-helpers do 
-	def message
-		"hello #{session[:name]}, you have visited #{session[:visit]} times "
-
-	end
-end 
-
 not_found do 
-	erb :notfound, :layout=>false
+	erb :notfound
 end
 
 
