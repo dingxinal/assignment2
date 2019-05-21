@@ -1,8 +1,9 @@
+<br>
 <h2>Students list </h2>
-<ul>
+<ul class="list-group">
 <% @students.each do |student| %>
-<li><a href="/students/<%=student.id%>"><%= student.firstname + ' ' +student.lastname %></a> </li>
+<li class="list-group-item "><a href="/students/<%=student.id%>"><%= student.firstname + ' ' +student.lastname %></a> </li>
 <% end %>
 </ul>
-
-<button onclick="location.href='/students/new'">Add new student</button>
+<br>
+<button  class="btn btn-warning" onclick="location.href='/students/new'">Add new student</button>

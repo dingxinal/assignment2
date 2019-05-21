@@ -1,10 +1,24 @@
-<h2>Please Login to have more privilege</h2>
-<h1>Username: admin</h1>
-<h1>Passoword: admin</h1>
+<br>
+<p>
+  
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    See password
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    usrname: admin; password: admin
+  </div>
+</div>
+
 <form action="/login" method="post">
+	<div class="form-group w-25">
 	Username:<br>
-	<input type="text"  name="username"><br>
+	<input class="form-control" type="text"  name="username"><br>
 	Password:<br>
-	<input type="text" name="password"><br>
-	<input type="submit" name="Submit">
+	<input class="form-control" type="text" name="password"><br>
+	<input class="form-control" type="submit" name="Submit">
+	</div>
 </form>
+
+

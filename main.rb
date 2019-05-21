@@ -62,7 +62,10 @@ end
 post '/students/new' do
 	@newstudent = Student.new(
       :firstname      => params[:firstname],
-      :lastname       => params[:lastname]
+      :lastname       => params[:lastname],
+      :birthday => params[:birthday],
+	  :age => params[:age],
+	  :address => params[:address]
     )
 	if @newstudent.save
     	redirect "/students"
@@ -79,7 +82,10 @@ end
 post '/students/:id' do
 	@foos = Student.all(:id => params[:id]).first
 	@foos.update :firstname => params[:firstname],
-				 :lastname => params[:lastname]
+				 :lastname => params[:lastname],
+				 :birthday => params[:birthday],
+				 :age => params[:age],
+				 :address => params[:address]
 	redirect "/students/#{params[:id]}"
 end
 
@@ -105,6 +111,10 @@ end
 
 get '/video' do
 	erb :video
+end
+
+get '/about' do
+	erb :about
 end
 
 get '/comment' do

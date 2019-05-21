@@ -1,8 +1,10 @@
+<br>
 <h2>Comment list </h2>
-<ul>
+<ul class="list-group list-group-flush">
 <% @comments.each do |comment| %>
-<li><a href="/comment/<%=comment.id%>">	<%= comment.content %></a> -<%=  comment.created_at.strftime("%m/%d/%Y %k:%M") %> </li>
+<li class="list-group-item"><a href="/comment/<%=comment.id%>">	<%= comment.content %></a> -<%=  comment.created_at.strftime("%m/%d/%Y %k:%M") %> </li>
 <% end %>
 </ul>
+<br>
 
-<button onclick="location.href='/comment/new'">Add new Comment</button>
+<button class="btn btn-warning" onclick="location.href='/comment/new'">Add new Comment</button>
