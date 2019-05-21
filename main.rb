@@ -28,6 +28,9 @@ DataMapper.auto_upgrade!
 
 configure do 
 	enable :sessions
+	set :username, "admin"
+	set :password, "admin"
+
 end
 
 get'/styles.css' do
@@ -49,20 +52,23 @@ get '/students' do
 end
 
 get '/students/new' do
-	erb :new_student
+	if session[:admin]
+		erb :new_student
+	else
+		redirect '/login'
+	end
 end
 
 post '/students/new' do
 	@newstudent = Student.new(
       :firstname      => params[:firstname],
       :lastname       => params[:lastname]
-  )
+    )
 	if @newstudent.save
-    redirect "/students"
+    	redirect "/students"
     else
-    redirect "/students/new"
+    	redirect "/students/new"
   	end
-	
 end
 
 get '/students/:id' do
@@ -83,9 +89,13 @@ delete '/students/:id' do
 	redirect "/students"
 end
 
-get '/students/:id/edit' do 
-	@foos = Student.all(:id => params[:id]).first
-	erb :edit
+get '/students/:id/edit' do
+	if session[:admin] 
+		@foos = Student.all(:id => params[:id]).first
+		erb :edit
+	else 
+		redirect '/login'
+	end
 end
 
 
@@ -110,7 +120,7 @@ end
 post '/comment/new' do
 	@comment = Comment.new(
 		:content => params[:content],
-		:user => params[:user],
+		:user => (params[:user] ||session[:user]),
 		:created_at => Time.now
 		)
 	if @comment.save
@@ -125,9 +135,25 @@ get '/comment/:id' do
 	erb :show_comment
 end
 
+get '/login' do
+	erb :login
+end
+
+post '/login' do
+	if params[:username] == settings.username &&
+		params[:password] == settings.password
+		session[:admin] = true
+		#session[:user] = params[:username]
+		redirect '/'
+	else
+		redirect '/login'
+	end
+end
+
 get '/logout' do
 	session.clear
 	"logging out.."
+	redirect '/'
 end
 
 helpers do 
